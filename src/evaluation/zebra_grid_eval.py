@@ -65,7 +65,7 @@ def eval_model(model, filepath, mode="best_of_n", max_N=None):
         total_cells += this_total_cells
 
         # Read and Parse the predictions from model output
-        predictions = [extract_last_complete_json(output) for output in item["output"]]
+        predictions = [extract_last_complete_json(output or "") for output in item["output"]]
         predictions = [p for p in predictions if p is not None and "solution" in p and p["solution"] is not None]
 
         # if all the predictions are empty, then skip the current puzzle, and add no answer count
@@ -394,4 +394,3 @@ if __name__ == "__main__":
     }
     load_private_solutions()
     gen_results(run_name_folders, bon=False, save_results=True)
-
